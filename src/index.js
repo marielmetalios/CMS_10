@@ -1,12 +1,15 @@
 import inquirer from "inquirer";
-import { pool } from "./connection";
+import dotenv from 'dotenv';
+dotenv.config();
+import { pool } from "./connection.js";
 
 // questions for CLI app
 const mainMenu = async () => {
-    const { choice } = await inquirer.prompt([
+    const { initial_choices } = await inquirer.prompt([
 
         {
             type: "list",
+            name: "initial_choices",
             message: "What would you like to do?",
             choices: [
                 "View all Employees",
@@ -20,7 +23,7 @@ const mainMenu = async () => {
             ]
         }
     ]);
-    switch (choice) {
+    switch (initial_choices) {
         case "View all Employees": return viewAllEmployees();
         case "Add Employee": return addEmployee();
         case "Update Employee Role": return updateEmployeeRole();
